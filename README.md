@@ -26,6 +26,7 @@ fn main() {
     const tree:i32 = 3;
 }
 ```
+[Back to Top](#index)
 
 ## Data types
 https://doc.rust-lang.org/book/ch03-02-data-types.html
@@ -65,6 +66,7 @@ fn main() {
 }
 
 ```
+[Back to Top](#index)
 
 ## Functions
 ```
@@ -112,6 +114,8 @@ In the above code the expression is
      y + 6
     };
 ```
+[Back to Top](#index)
+
 ## Control flow
 
 ### If else statement
@@ -207,3 +211,6 @@ fn main()
     }
 }
 ```
+[Back to Top](#index)
+
+
