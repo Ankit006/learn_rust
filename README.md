@@ -59,3 +59,145 @@ fn main() {
 }
 
 ```
+
+## Functions
+```
+fn main() {
+    another_func(12);
+}
+
+fn another_func(x:i32) {
+    println!("Hello world {x}");
+}
+
+```
+When returning a value from a function, you have to explicitly define what type of data your are returning by using `->` sign after parenthesis. There are two ways you can return value in rust.
+1. Using `return` keyword
+```
+fun add_five(x:i32)
+{
+    return x+5;
+}
+```
+2. Not adding **semicolon** at the end of the statement. 
+
+```
+fun add_five(x:i32)
+{
+    x+5
+}
+```
+One of the important thing to note is a statement does not return a value. So you cannot write a statement like this ``` let x = y = 12; ```. But an expression (a piece of code which returns a value) can be a part of statement.
+```
+fn main()
+{
+    let x = {
+        let y = 12;
+        y + 6
+    };
+
+    println!("{x}");
+}
+```
+In the above code the expression is
+```
+    {
+     let y = 12;
+     y + 6
+    };
+```
+## Control flow
+
+### If else statement
+```
+fn main()
+{
+    let number = 23;
+
+    if number > 24{
+        println!("Bigger");
+    } else if number > 18 && number < 24{
+        println!("middle");
+    }else{
+        println!("Less");
+    }
+}
+```
+### using if condition in let statement
+You can assign if else condition to an variable. But the return value should be same in the conditions
+
+```
+fn main()
+{
+   let condition = true;
+
+   let x = if condition {5} else {6}; 
+   println!("{x}");
+}
+```
+but you cannot write like this.
+```
+fn main()
+{
+   let condition = true;
+
+   let x = if condition {5} else {"six"}; 
+   println!("{x}");
+}
+```
+because the return value if and else condition is different. If returning integer and else returning string but but value must be same data type.
+
+### Loop
+```
+fn main()
+{
+  let mut counter = 0;
+
+   loop{
+    if counter == 10{
+        break;
+    }
+    println!("again");
+    counter += 1;
+   }
+}
+```
+### While loop
+
+```
+fn main()
+{
+  let mut num = 0;
+  while num <= 10 {
+      println!("again");
+      num += 1;
+  }
+}
+```
+### For loop
+In rust for loop normally used in traverse through list of values such as array
+```
+fn main()
+{
+    let x:[i32; 5] = [10,20,30,40,50];
+
+    for val in x {
+        println!("{val}");
+    }
+}
+```
+you can also print list of value like this
+```
+fn main()
+{
+    for val in 1..6{
+        println!("{val}");
+    }
+
+    println!("------------------");
+    // print values in reverse order
+    for val in (1..6).rev(){
+        println!("{val}");
+    }
+}
+```
