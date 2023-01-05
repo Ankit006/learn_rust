@@ -133,7 +133,7 @@ fn main()
     }
 }
 ```
-### using if condition in let statement
+### Using if condition in let statement
 You can assign if else condition to an variable. But the return value should be same in the conditions
 
 ```
