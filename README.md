@@ -1,5 +1,11 @@
 # Learn rust
 
+### Index
+- [Variables](#variables)
+- [Data types](#data-types)
+- [Functions](#functions)
+- [Control flow](#control-flow)
+
 ## Variables
 `Let` keyword is used to declare variable in rust. By default values are immutable in rust. You have to use `mut` keyword to make variable mutable. In the below example variable `x` is a immutable variable and `y` is a mutable variable
 
