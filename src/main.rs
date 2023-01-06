@@ -1,13 +1,9 @@
-fn main()
-{
-    for val in 1..6{
-        println!("{val}");
-    }
-
-    println!("------------------");
-    // print values in reverse order
-    for val in (1..6).rev(){
-        println!("{val}");
-    }
+fn main(){
+   let x = String::from("Hello world");
+   print_str(x);
+   println!("{}",x);
 }
 
+fn print_str(data:String){
+    println!("{}",data);
+}
