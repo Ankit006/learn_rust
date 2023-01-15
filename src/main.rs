@@ -1,9 +1,13 @@
-fn main(){
-   let x = String::from("Hello world");
-   print_str(x);
-   println!("{}",x);
+fn print_data(s:i32){
+    println!("{s}");
 }
 
-fn print_str(data:String){
-    println!("{}",data);
+fn main(){
+    let num = 12;
+    print_data(num);
+    println!("{num}");
 }
+
+
+
+
