@@ -7,6 +7,7 @@
 - [Control flow](#control-flow)
 - [Ownership](#ownership)
 - [References](#references-and-borrowing)
+-  [The Slice type](#the-slice-type)
 
 ## Variables
 `Let` keyword is used to declare variable in rust. By default values are immutable in rust. You have to use `mut` keyword to make variable mutable. In the below example variable `x` is a immutable variable and `y` is a mutable variable
@@ -299,7 +300,7 @@ fn takes_and_gives_back(a_string: String) -> String { // a_string comes into
 [Back to Top](#index)
 
 ## References and Borrowing
-A reference is like a pointer pointed to a value stored in the memory, which is owned by an another variable. Unlike a pointer, a reference is guaranteed to point to a valid value.
+A reference is like a pointer pointed to a value stored in the memory, which is owned by an another variable. Unlike a pointer, a reference is guaranteed to point to a valid value. Reference is also called **borrowing**. One thing to rememebr
 ```
 fn main() {
     let s1 = String::from("hello");
@@ -313,6 +314,94 @@ fn calculate_length(s: &String) -> usize {
     s.len()
 }
 
+```
+In case of the reference, the `s1` variable still be valid. So, here the ownership does not transfer from `s1` to `&s1`. 
+<br/>
+### changing value using reference
+Because variables are immutable by default in rust. You cannot change values directly using reference. You have to use mutable reference.
+
+```
+fn main(){
+    let mut data = String::from("Hello");
+    change_str(&mut data);
+    println!("{data}");
+}
+
+fn change_str(s:&mut String){
+    s.push_str(" world!");
+}
+```
+One thing to remember is that **you cannot mutable reference of a variable if that variable already has a immutable reference and your are using the immutable reference**. for example - 
+```
+fn main(){
+    let mut s1 = String::from("hello");
+    let slice:&str = &s1[0..2];
+    s1.clear();
+    println!("{}",slice);
+}
+```
+The above code will throw an error because. the `slice` variable is taking an immutable reference of `s1` variable, but on the next statement we are try to clear `s1` variable using `clear` method which use mutable reference of the `s1` variable. Now because in the next statement we are using the immutable reference `slice` of the `s1` variable in the `println!` function, which means the `slice` variable still need to be active. So, the compiler will throw an error.
+
+### Dangling pointer
+A dangling pointer is a pointer that is a reference to memory that has been cleared up. So, the pointer pointed to a memory which does not contain any value. If a pointer is a dangling pointer, the rust compiler will throw an error. For example,
+
+```
+fn main() {
+    let reference_to_nothing = dangle();
+}
+
+fn dangle() -> &String {
+    let s = String::from("hello");
+
+    &s
+}
+```
+The above code will throw an error. Because, the string is created inside the `dangle` function, the `dangle` function finishes its execution, the `s` variable inside `dangle` function will become invalid and memory will be cleared. So, the variable `reference_to_noting` is pointed to a invalid string. This cause an error. To avoid this you can simply return the string
+```
+fn main() {
+    let string = no_dangle();
+}
+
+fn no_dangle() -> String {
+    let s = String::from("hello");
+
+    s
+}
+
+```
+[Back to Top](#index)
+
+## The Slice Type
+Slice let you reference a part of a contiguous collection of element rather than the whole collection itself.
+
+### String slice
+String slice a reference to a part of a string.
+For example, in the below code, the `slice` variable will store **world**.
+
+```
+ let s = String::from("hello world");
+
+ let slice = &s[6..11];
+
+```
+in the range bracket 6 is the starting index of the slice slice and 11 is the one more than ending index of the slice. the `slice` variable stores starting index, length of the slice (this is corresponds to one more positing than the last index of the slice). the `slice` variable also stores a pointer pointed to the byte value in the position 6 (in this case it is `w`). 
+
+The data type of the string slice is `&str`. So, we can also write
+```
+ let slice:&str = &s[6..11];
+```
+here are some example to take different slices of string
+```
+ let s = String::from("hello world");
+ let len = s.len();
+ 
+ // the string slice will be up to the last value of the string 
+
+ let slice = &s[6..len];
+
+ // this will take entire string as slice
+
+ let slice = &s[..]
 ```
 
 

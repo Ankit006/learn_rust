@@ -1,13 +1,6 @@
-fn print_data(s:i32){
-    println!("{s}");
-}
-
 fn main(){
-    let num = 12;
-    print_data(num);
-    println!("{num}");
+    let mut s1 = String::from("hello");
+    let slice:&str = &s1[0..2];
+    s1.clear();
+    println!("{}",slice);
 }
-
-
-
-
