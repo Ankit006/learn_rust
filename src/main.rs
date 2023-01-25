@@ -1,6 +1,8 @@
-fn main(){
-    let mut s1 = String::from("hello");
-    let slice:&str = &s1[0..2];
-    s1.clear();
-    println!("{}",slice);
+
+
+fn main() {
+   struct  Color(i32, i32, i32);
+   let black = Color(0,0,0);
+   println!("{} {} {}",black.0, black.1, black.2);
 }
+

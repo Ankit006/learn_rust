@@ -8,6 +8,7 @@
 - [Ownership](#ownership)
 - [References](#references-and-borrowing)
 -  [The Slice type](#the-slice-type)
+- [Struct](#struct)
 
 ## Variables
 `Let` keyword is used to declare variable in rust. By default values are immutable in rust. You have to use `mut` keyword to make variable mutable. In the below example variable `x` is a immutable variable and `y` is a mutable variable
@@ -412,5 +413,104 @@ let a = [1, 2, 3, 4, 5];
 let slice = &a[1..3];
 
 ``` 
+
+[Back to Top](#index)
+
+## Struct
+
+Struct is a similar to class in other programming language. Here is example, of how to create struct and how create instances of a struct. Instances by default are immutable. You can also create mutable instances. Immutable instances value cannot be change once initialized.
+
+```
+struct User {
+    active: bool,
+    name: String,
+    email: String,
+    sign_in_count: u64,
+}
+
+fn main() {
+    // immutable instance
+    let ankit = User {
+        active: true,
+        name: String::from("Ankit Ghosh"),
+        email: String::from("ankitghosh312@gmail.com"),
+        sign_in_count: 1,
+    };
+
+    // mutable instance
+    let mut arijit = User {
+        active: true,
+        name: String::from("Arijit"),
+        email: String::from("arijit312@gmail.com"),
+        sign_in_count: 1,
+    };
+    arijit.email = String::from("arijit111@gmail.com");
+
+    // creating struct instance using function
+    let _juli = create_user(String::from("Julfikar"), String::from("juli123@gmail.com"));
+    println!(
+        "{}, active: {}, sign-in {}",
+        ankit.name, ankit.active, ankit.sign_in_count
+    );
+}
+
+// function to create struct instances
+fn create_user(name: String, email: String) -> User {
+    User {
+        active: true,
+        name,
+        email, 
+        sign_in_count: 1,
+    }
+}
+
+```
+### Copy value from instance to another
+Let's say you have two user - `user1` & `user2`. `user2` has same value as `user1` except the email. You can easily copy `user1` value to `user2` using `..` syntax. This is kind a similar to javascript spread operator 
+```
+fn main() {
+    struct User {
+        active: bool,
+        name: String,
+        email: String,
+        sign_in_count: u64,
+    }
+    // immutable instance
+    let user1 = User {
+        active: true,
+        name: String::from("Ankit Ghosh"),
+        email: String::from("ankitghosh312@gmail.com"),
+        sign_in_count: 1,
+    };
+    let user2 = User{
+        email:String::from("nick543@gmail.com"),
+        ..user1
+    };
+    println!("{}",user1.active);
+}
+
+
+```
+However, you have remember the ownership. The `..` is using assignment `=` operator. In the user1 both `name` and `email` is string. So when we are copying the value from `user1` to `user2`, we create a new string for email in `user2`. But for the `name` properties, the ownership is move from `user1.name` to `user2.name`, which make `user1.name` invalid. 
+We can prevent this by simply creating a new string for `name` property in the `user2`.
+
+```
+ let user2 = User{
+        email:String::from("nick543@gmail.com"),
+        name:String::from("Ren Dover")
+        ..user1
+    };
+```
+### Tuple struct
+You can also create tuple struct, but unlike normal struct, a tuple struct properties does not have name, only types. You can access properties by using index values, just like normal tuple
+
+```
+fn main() {
+   struct  Color(i32, i32, i32);
+   let black = Color(0,0,0);
+   println!("{} {} {}",black.0, black.1, black.2);
+}
+
+```
 
 [Back to Top](#index)
