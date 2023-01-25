@@ -403,6 +403,14 @@ here are some example to take different slices of string
 
  let slice = &s[..]
 ```
+### integer array slice
+concept is same as string slice. But the Data type is [i32]
 
+```
+let a = [1, 2, 3, 4, 5];
+
+let slice = &a[1..3];
+
+``` 
 
 [Back to Top](#index)
