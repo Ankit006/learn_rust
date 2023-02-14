@@ -12,7 +12,8 @@
 - [Struct](#struct)
 - [Debug](#debug)
 - [Enum](#enum)
-
+- [Match control](#match-control)
+- [Concise control flow with if let](#concise-control-flow-with-if-let)
 ## Variables
 
 `Let` keyword is used to declare variable in rust. By default values are immutable in rust. You have to use `mut` keyword to make variable mutable. In the below example variable `x` is a immutable variable and `y` is a mutable variable
@@ -979,3 +980,9 @@ fn main() {
 }
 
 ```
+[Back to Top](#index)
+
+## Concise control flow with if let
+
+
+[Back to Top](#index)
