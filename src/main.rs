@@ -1,25 +1,11 @@
-#[derive(Debug)]
-struct Reactangle {
-    width: u32,
-    height: u32,
+fn main(){
+    let five = Some(5);
+    let six = plus_one(five);
 }
 
-impl Reactangle {
-    fn area(&mut self) -> u32 {
-        self.width = 12;
-        self.width * self.height
+fn plus_one(x:Option<i32>)->Option<i32>{
+    match x {
+        None => None,
+        Some(i) => Some (i + 1),
     }
-    fn reactangle(width: u32, height: u32) -> Self {
-        Self { width, height }
-    }
-}
-
-fn main() {
-    let mut ret1 = Reactangle {
-        width: 32,
-        height: 20,
-    };
-
-    let ret2 = Reactangle::reactangle(12, 13);
-    println!("{}", ret1.area());
 }

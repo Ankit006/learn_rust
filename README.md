@@ -11,6 +11,7 @@
 - [The Slice type](#the-slice-type)
 - [Struct](#struct)
 - [Debug](#debug)
+- [Enum](#enum)
 
 ## Variables
 
@@ -745,5 +746,236 @@ fn main() {
 }
 ```
 
+[Back to Top](#index)
+
+
+## Enum
+
+Enum enable us to defined a value of a variable is one of a possible set of values .
+
+For example
+
+```
+enum IpAddrVer {
+    V4,
+    V6
+}
+
+
+struct  IpAddr{
+    ver:IpAddrVer,
+    addr:String
+}
+
+fn main(){
+   let home = IpAddr{
+    ver:IpAddrVer::V4,
+    addr: String::from("127.0.0.1")
+   };
+
+}
+```
+we can directly bind value to a enum
+```
+enum IpAddr {
+    V4(String),
+    V6(String)
+}
+
+fn main(){
+    let home = IpAddr::V4(String::from("127.0.0.1"));
+}
+```
+```
+enum IpAddr {
+        V4(u8, u8, u8, u8),
+        V6(String),
+    }
+
+    let home = IpAddr::V4(127, 0, 0, 1);
+
+    let loopback = IpAddr::V6(String::from("::1"));
+
+```
+
+just like struct we can implement method in enum
+
+```
+enum IpAddr {
+    V4(String),
+    V6(String)
+}
+
+
+impl IpAddr {
+    fn call(&self){
+
+    }
+}
+fn main(){
+    let home = IpAddr::V4(String::from("127.0.0.1"));
+    home.call();
+}
+```
+
+### Option
+Rust does not have support of null value. But we can use `Option` enum to represent a value is absent. 
+
+```
+enum Option<T> {
+    None,
+    Some(T)
+}
+```
+The variants of `Option` enum is `None` and `Some`. 
+
+`Some` is used to wrap a value and indicate that it is present, while `None` represents the absence of a value.
+
+For example, `Some(42)` would represent the presence of the value 42, while `None` would represent the absence of any value.
+
+So, the main difference between `Some` and `None` is that `Some` indicates the presence of a value, while `None` indicates its absence.
+
+You can use this variants directly into your code
+
+```
+fn main(){
+    let some_number = Some(5);
+    let absent_number: Option<i32> = None;
+    
+}
+```
 
 [Back to Top](#index)
+
+## Match control
+Rust has an extremely powerful control flow construct called `match` that allows you to compare a value against a series of patterns and then execute code based on which pattern matches. Patterns can be made up of literal values, variable names, wildcards, and many other things. The difference between `match` and `if` statement is that `if` statement evaluate boolean, but `match` evaluate any type.
+For example 
+```
+enum  Coin {
+    Penny,
+    Nickel,
+    Dime,
+    Quarter
+}
+
+fn main(){
+    let coin = Coin::Penny;
+    println!("{}",value_in_cents(coin));
+}
+
+
+fn value_in_cents(coin:Coin)->u8{
+    match coin {
+        Coin::Penny => 1,
+        Coin::Nickel => 5,
+        Coin::Dime =>10,
+        Coin::Quarter => 25,
+    }
+}
+```
+As you can see in the `value_in_cents` function, the `match` expression compare `coin` against the pattern written witch curly braces. So, if its Penny return 1, or if its nickel return 5. 
+We can run multiple line of code when the pattern is matched 
+```
+enum Coin {
+    Penny,
+    Nickel,
+    Dime,
+    Quarter,
+}
+
+fn value_in_cents(coin: Coin) -> u8 {
+    match coin {
+        Coin::Penny => {
+            println!("Lucky penny!");
+            1
+        }
+        Coin::Nickel => 5,
+        Coin::Dime => 10,
+        Coin::Quarter => 25,
+    }
+}
+
+```
+
+### Pattern that bind to values
+Another useful feature of match arms is that they can bind to the parts of the values that match the pattern. This is how we can extract values out of enum variants.
+
+For example, For example, let's say we have enum of indian currency and 10 rupee store enum of state,
+
+```
+#[derive(Debug)]
+enum InState {
+    west_bengal,
+    Delhi,
+    Maharashtra,
+}
+
+enum Coin {
+    one,
+    two,
+    five,
+    ten(InState),
+}
+
+fn main() {
+    let coin = Coin::ten(InState::west_bengal);
+    value_in_coin(coin);
+}
+
+fn value_in_coin(coin: Coin) -> u8 {
+    match coin {
+        Coin::one => 1,
+        Coin::two => 2,
+        Coin::five => 5,
+        Coin::ten(state) => {
+            println!("State is {:?}!", state);
+            10
+        }
+    }
+}
+
+``` 
+We can also apply `match` in `Option` enum
+
+```
+fn main(){
+    let five = Some(5);
+    let six = plus_one(five);
+}
+
+fn plus_one(x:Option<i32>)->Option<i32>{
+    match x {
+        None => None,
+        Some(i) => Some (i + 1),
+    }
+}
+```
+We can also use also catch all the other value which are not matched. It is like a default value in `switch` statement of other programming languages. `_` sign is use to catch all values
+
+```
+let dice_roll = 9;
+    match dice_roll {
+        3 => add_fancy_hat(),
+        7 => remove_fancy_hat(),
+        _ => reroll(),
+    }
+
+    fn add_fancy_hat() {}
+    fn remove_fancy_hat() {}
+    fn reroll() {}
+```
+If we don't want to run any code in `_` , then return `()`.
+```
+fn main() {
+    let dice_roll = 9;
+    match dice_roll {
+        3 => add_fancy_hat(),
+        7 => remove_fancy_hat(),
+        _ => (),
+    }
+
+    fn add_fancy_hat() {}
+    fn remove_fancy_hat() {}
+}
+
+```
