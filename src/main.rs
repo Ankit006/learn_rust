@@ -1,11 +1,8 @@
 fn main(){
-    let five = Some(5);
-    let six = plus_one(five);
-}
-
-fn plus_one(x:Option<i32>)->Option<i32>{
-    match x {
-        None => None,
-        Some(i) => Some (i + 1),
+    let config_max:Option<u8> = Option::None;
+    if let Some(value) = config_max {
+       println!("{}",value);
+    }else{
+       println!("Not matched");
     }
-}
+ }

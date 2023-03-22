@@ -14,6 +14,7 @@
 - [Enum](#enum)
 - [Match control](#match-control)
 - [Concise control flow with if let](#concise-control-flow-with-if-let)
+- [Managing growing project](#managing-growing-project)
 ## Variables
 
 `Let` keyword is used to declare variable in rust. By default values are immutable in rust. You have to use `mut` keyword to make variable mutable. In the below example variable `x` is a immutable variable and `y` is a mutable variable
@@ -983,6 +984,47 @@ fn main() {
 [Back to Top](#index)
 
 ## Concise control flow with if let
+
+
+if let syntax use for way to handle value which is less verbose than `match`. In this we can match one pattern and ignore rest. For example
+```
+fn main(){
+   let config_max = Some(3u8);
+   match config_max {
+       Some(value)=> println!("{}",value),
+       _=>()
+   }
+}
+```
+We can write above code like this
+
+```
+fn main(){
+   let config_max = Some(3u8);
+   if let Some(value) = config_max {
+      println!("{}",value);
+   }
+}
+```
+you can think of `if let` as syntax sugar for a `match` that runs code when the value matches one pattern and then ignores all other values.
+
+you can also use `else`. It is use when pattern does not match. For example, if `config_max` not `Some(3u8)`, it is `None`, than `Some(value) = config_max` will not match, so we can write
+
+```
+fn main(){
+    let config_max:Option<u8> = Option::None;
+    if let Some(value) = config_max {
+       println!("{}",value);
+    }else{
+       println!("Not matched");
+    }
+}
+
+```
+
+[Back to Top](#index)
+
+## Managing Growing Project
 
 
 [Back to Top](#index)
